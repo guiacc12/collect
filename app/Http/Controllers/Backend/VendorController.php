@@ -11,5 +11,6 @@ class VendorController extends Controller
     {
         return view('vendor/dashboard');
     }
+
 }
 

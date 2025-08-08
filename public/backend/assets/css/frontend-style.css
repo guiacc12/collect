@@ -4,12 +4,13 @@ body {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    background-color: #000000;
 }
 
 #app {
-    flex: 1; /* Faz o conteúdo principal ocupar o espaço restante */
+    flex: 1;
 }
-    /* Menu para mobile */
+
     @media (max-width: 991.98px) {
         .navbar-collapse {
             position: relative;
@@ -40,7 +41,7 @@ body {
         }
     }
 
-    /* Menu para desktop */
+
     @media (min-width: 992px) {
         .navbar {
             padding: 0.5rem 2rem;
@@ -128,7 +129,7 @@ body {
 
 .footer {
     padding: 20px 0;
-    background-color: #000; /* Cor de fundo do footer */
+    background-color: #000;
     color: white;
     margin-top: 0px;
 
@@ -458,7 +459,6 @@ body {
 
         text-align: left;
     }
-
     .timeline-right {
         grid-area: text;
         padding-left: 0;

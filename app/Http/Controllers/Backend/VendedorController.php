@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Vendedor;
+use App\Models\User;
 use App\DataTables\VendedorDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class VendedorController extends Controller
 {
@@ -36,13 +38,24 @@ class VendedorController extends Controller
         'nome' => 'required|string|max:255',
         'whatsapp' => 'required|url',
         'telefone' => 'required|string|max:20',
+        'email' => 'required|email|unique:users,email',
+        'senha' => 'required|string|min:6',
     ]);
+
+
+        $user = User::create([
+            'name' => $request->nome,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'vendor',
+        ]);
 
     // Criação do novo vendedor
     Vendedor::create([
         'nome' => $request->nome,
         'whatsapp' => $request->whatsapp,
         'telefone' => $request->telefone,
+        'email' => $request->email,
     ]);
 
     toastr()->success('Cadastrado com sucesso!');
@@ -63,7 +76,17 @@ class VendedorController extends Controller
     public function edit(string $id)
     {
     $vendedor = Vendedor::findOrFail($id);
-    return response()->json($vendedor); // Retorna os dados do vendedor como JSON
+
+
+    $user = User::where('email', $vendedor->nome)->first();
+
+    return response()->json([
+        'nome' => $vendedor->nome,
+        'telefone' => $vendedor->telefone,
+        'whatsapp' => $vendedor->whatsapp,
+        'email' => $vendedor->email ?? null,
+        'senha' => '',
+    ]);
     }
 
     /**
@@ -75,18 +98,34 @@ class VendedorController extends Controller
         'nome' => 'required|string|max:255',
         'whatsapp' => 'required|url',
         'telefone' => 'required|string|max:20',
+        'email' => 'required|email',
+        'senha' => 'nullable|string|min:6',
     ]);
 
     $vendedor = Vendedor::findOrFail($id);
 
-    // Atualiza os dados corretamente
+    $oldEmail = $vendedor->email;
+
     $vendedor->nome = $request->nome;
     $vendedor->telefone = $request->telefone;
     $vendedor->whatsapp = $request->whatsapp;
+    $vendedor->email = $request->email;
     $vendedor->save();
 
+    $user = User::where('email', $oldEmail)->first();
+    if ($user) {
+        $user->name = $request->nome;
+        $user->email = $request->email;
+
+        if (!empty($request->senha)) {
+            $user->password = Hash::make($request->senha);
+        }
+
+        $user->save();
+    }
+
     toastr()->success('Atualizado com sucesso!');
-    return redirect()->route('vendedor.index'); // Certifique-se de que a rota está correta
+    return redirect()->route('vendedor.index');
     }
 
     /**
@@ -95,10 +134,14 @@ class VendedorController extends Controller
     public function destroy(string $id)
     {
         $vendedor = Vendedor::findOrFail($id);
+        $user = User::where('email', $vendedor->email)->first();
+        if ($user) {
+        $user->delete();
+    }
         $vendedor->delete();
 
         return response(['status' => 'success', 'message' => 'Excluído com sucesso!']);
     }
 
-    
+
 }

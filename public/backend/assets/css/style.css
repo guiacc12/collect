@@ -1503,7 +1503,7 @@ h6 .badge {
 .navbar {
   height: 70px;
   left: 250px;
-  right: 5px;
+  right: 0px;
   position: absolute;
   z-index: 890;
   background-color: transparent; }
@@ -1743,8 +1743,8 @@ h6 .badge {
         color: #fff; }
 
   .navbar {
-    left: 5px;
-    right: 0; }
+    left: 0px;
+    right: 0px; }
     .navbar .dropdown-menu {
       position: absolute; }
     .navbar .navbar-nav {

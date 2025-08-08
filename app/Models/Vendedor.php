@@ -13,5 +13,6 @@ class Vendedor extends Model
         'nome',
         'whatsapp',
         'telefone',
+        'email',
     ];
 }
