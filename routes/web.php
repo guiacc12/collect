@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\VendorController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Frontend\FrontController;
@@ -13,8 +14,6 @@ Route::get('/portifolio', [PortifolioController::class, 'index'])->name('portifo
 Route::get('categoria/{slug}', [PortifolioController::class, 'produtosPorCategoria'])->name('categoria.produtos');
 Route::get('front-end/show/{categoria}/{produto}', [PortifolioController::class, 'show'])->name('produto.show');
 
-
-//chamando rotas MSFLIX ORGANIZADAS
 foreach(File::allFiles(__DIR__.'/web') as $route_file){
     require $route_file->getPathname();
 }

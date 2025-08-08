@@ -67,6 +67,16 @@
                             <input type="url" class="form-control" id="whatsapp" name="whatsapp"
                                 placeholder="Link direto WhatsApp" required>
                         </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="E-mail"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha"
+                                required>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -109,6 +119,15 @@
                             <input type="url" class="form-control" id="edit_whatsapp" name="whatsapp"
                                 placeholder="Link direto WhatsApp" required>
                         </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="edit_email" name="email" placeholder="E-mail"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" class="form-control" id="edit_senha" name="senha" placeholder="Senha">
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             <button type="submit" class="btn btn-primary">Salvar Alterações</button>
@@ -136,7 +155,7 @@
                     <p><strong>Peças vendidas:</strong> <span id="totalPecas"></span></p>
                     <p><strong>Valor total vendido:</strong> R$ <span id="totalVendas"></span></p>
 
-                    <div class="table-responsive"> 
+                    <div class="table-responsive">
                         <table class="table table-striped" id="vendasTable">
                             <thead>
                                 <tr>
@@ -175,6 +194,8 @@
                         if ($('#edit_nome').length) $('#edit_nome').val(response.nome);
                         if ($('#edit_telefone').length) $('#edit_telefone').val(response.telefone);
                         if ($('#edit_whatsapp').length) $('#edit_whatsapp').val(response.whatsapp);
+                        if ($('#edit_email').length) $('#edit_email').val(response.email);
+                        if ($('#edit_senha').length) $('#edit_senha').val('');
 
                         $('#editVendedorForm').attr('action', '/admin/vendedor/' + vendedorId);
                     }
