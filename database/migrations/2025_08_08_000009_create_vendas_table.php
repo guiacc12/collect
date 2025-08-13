@@ -5,16 +5,15 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vendedor_id')->constrained('vendedors')->onDelete('cascade');
+            $table->foreignId('vendedor_id')->constrained('vendedors')->onDelete('cascade')->onUpdate('restrict');
             $table->string('produto_nome');
             $table->string('comprador_nome');
             $table->integer('quantidade');
             $table->decimal('valor_venda', 10, 2);
-            $table->string('status')->default('em progresso');
+            $table->boolean('status')->default(0);
             $table->string('cpf_cnpj');
             $table->string('cep');
             $table->string('rua');
@@ -26,10 +25,7 @@ return new class extends Migration {
             $table->timestamps();
         });
     }
-
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('vendas');
     }
 };
-
