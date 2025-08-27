@@ -1,66 +1,307 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Collect - Sistema de Gestão
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema de gestão desenvolvido em Laravel 11 com interface administrativa e frontend para exibição de produtos e portfólio.
 
-## About Laravel
+## 📋 Pré-requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Antes de começar, certifique-se de ter instalado:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **XAMPP** (Apache, MySQL, PHP 8.2+)
+- **Composer** (gerenciador de dependências PHP)
+- **Node.js 18+ e NPM** (para assets frontend)
+- **Git** (para clonar o repositório)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🚀 Instalação
 
-## Learning Laravel
+### 1. Clone o repositório
+```bash
+# Clone o repositório na pasta htdocs do XAMPP
+cd C:\xampp\htdocs
+git clone <https://github.com/guiacc12/collect>
+cd collect
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 2. Instale as dependências PHP
+```bash
+composer install
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 3. Instale as dependências Node.js
+```bash
+npm install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 4. Configure o ambiente
+```bash
+# Copie o arquivo de exemplo de configuração
+cp .env.example .env
 
-## Laravel Sponsors
+# Gere a chave da aplicação
+php artisan key:generate
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 5. Configure o banco de dados MySQL
 
-### Premium Partners
+#### 5.1. Inicie o XAMPP
+- Abra o **XAMPP Control Panel**
+- Inicie os serviços **Apache** e **MySQL**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### 5.2. Crie o banco de dados
+- Acesse `http://localhost/phpmyadmin`
+- Clique em **"Novo"** para criar um novo banco
+- Nome do banco: `collect`
+- Collation: `utf8mb4_unicode_ci`
+- Clique em **"Criar"**
 
-## Contributing
+#### 5.3. Configure o arquivo .env
+Edite o arquivo `.env` com as configurações do MySQL:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=collect
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Code of Conduct
+### 6. Execute as migrações
+```bash
+# Execute as migrações para criar as tabelas
+php artisan migrate
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Execute os seeders (dados iniciais)
+php artisan db:seed
+```
 
-## Security Vulnerabilities
+### 7. Compile os assets
+```bash
+# Para desenvolvimento
+npm run dev
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Para produção
+npm run build
+```
 
-## License
+### 8. Configure o storage
+```bash
+php artisan storage:link
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🏃‍♂️ Executando o Projeto
+
+### Opção 1: Usando o servidor do Laravel (Recomendado para desenvolvimento)
+```bash
+# Inicie o servidor de desenvolvimento
+php artisan serve
+
+# Em outro terminal, compile os assets em modo watch
+npm run dev
+```
+
+O projeto estará disponível em: `http://localhost:8000`
+
+### Opção 2: Usando o Apache do XAMPP
+```bash
+# Compile os assets para produção
+npm run build
+
+# Acesse diretamente pelo Apache
+# http://localhost/collect/public
+```
+
+### Comando de desenvolvimento completo
+```bash
+# Executa servidor, queue, logs e vite simultaneamente
+composer run dev
+```
+
+## 📁 Estrutura do Projeto
+
+```
+collect/
+├── app/
+│   ├── Http/Controllers/     # Controladores
+│   │   ├── Backend/         # Controladores do painel admin
+│   │   └── Frontend/        # Controladores do frontend
+│   ├── Models/              # Modelos Eloquent
+│   ├── DataTables/          # Configurações do DataTables
+│   └── Traits/              # Traits reutilizáveis
+├── database/
+│   ├── migrations/          # Migrações do banco
+│   └── seeders/            # Seeders para dados iniciais
+├── resources/views/
+│   ├── admin/              # Views do painel administrativo
+│   ├── front-end/          # Views do frontend
+│   └── layouts/            # Layouts base
+├── public/
+│   ├── uploads/            # Arquivos enviados pelos usuários
+│   └── backend/assets/     # Assets do painel admin
+└── routes/
+    ├── web.php             # Rotas principais
+    └── web/                # Rotas organizadas por módulo
+```
+
+## 🔐 Acesso ao Sistema
+
+### Painel Administrativo
+- **URL (Laravel serve):** `http://localhost:8000/admin`
+- **URL (XAMPP Apache):** `http://localhost/collect/public/admin`
+- **Usuário padrão:** Verifique o seeder `UserSeeder.php`
+
+### Frontend
+- **URL (Laravel serve):** `http://localhost:8000`
+- **URL (XAMPP Apache):** `http://localhost/collect/public`
+- Página inicial com produtos e portfólio
+
+### phpMyAdmin
+- **URL:** `http://localhost/phpmyadmin`
+- **Usuário:** `root`
+- **Senha:** (vazio por padrão)
+
+## 🛠️ Funcionalidades
+
+### Painel Administrativo
+- ✅ Autenticação de usuários
+- ✅ Gestão de categorias
+- ✅ Gestão de produtos
+- ✅ Gestão de colaboradores
+- ✅ Gestão de promoções
+- ✅ Gestão de sliders
+- ✅ Relatórios de vendas
+- ✅ Perfil do usuário
+
+### Frontend
+- ✅ Página inicial
+- ✅ Catálogo de produtos
+- ✅ Página de portfólio
+- ✅ Visualização de produtos
+
+## 📦 Dependências Principais
+
+### Backend (PHP)
+- **Laravel 11** - Framework PHP
+- **Laravel Breeze** - Autenticação
+- **Yajra DataTables** - Tabelas interativas
+- **Toastr** - Notificações
+
+### Frontend (JavaScript/CSS)
+- **Vite** - Build tool
+- **Tailwind CSS** - Framework CSS
+- **Alpine.js** - Framework JavaScript
+- **GSAP** - Animações
+
+## 🔧 Comandos Úteis
+
+```bash
+# Limpar cache
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+
+# Recriar banco de dados
+php artisan migrate:fresh --seed
+
+# Executar testes
+php artisan test
+
+# Gerar controller
+php artisan make:controller NomeController
+
+# Gerar model
+php artisan make:model NomeModel -m
+
+# Gerar migration
+php artisan make:migration nome_da_migration
+```
+
+## 🌐 Configuração do XAMPP
+
+### Apache (XAMPP)
+Para usar o Apache do XAMPP, certifique-se de que:
+
+1. **mod_rewrite está habilitado:**
+   - Abra o arquivo `C:\xampp\apache\conf\httpd.conf`
+   - Procure por `#LoadModule rewrite_module modules/mod_rewrite.so`
+   - Remova o `#` para descomentar a linha
+   - Reinicie o Apache
+
+2. **Configuração do Virtual Host (Opcional):**
+   - Adicione no arquivo `C:\xampp\apache\conf\extra\httpd-vhosts.conf`:
+   ```apache
+   <VirtualHost *:80>
+       DocumentRoot "C:/xampp/htdocs/collect/public"
+       ServerName collect.local
+       <Directory "C:/xampp/htdocs/collect/public">
+           AllowOverride All
+           Require all granted
+       </Directory>
+   </VirtualHost>
+   ```
+   - Adicione `127.0.0.1 collect.local` no arquivo `C:\Windows\System32\drivers\etc\hosts`
+   - Reinicie o Apache
+
+### MySQL (XAMPP)
+- **Porta padrão:** 3306
+- **Usuário padrão:** root
+- **Senha padrão:** (vazio)
+- **phpMyAdmin:** `http://localhost/phpmyadmin`
+
+## 🐛 Solução de Problemas
+
+### Erro de permissões (Windows/XAMPP)
+```bash
+# Certifique-se de que o Apache tem permissões de escrita nas pastas
+# Clique com botão direito nas pastas storage e bootstrap/cache
+# Propriedades > Segurança > Editar > Adicionar > IIS_IUSRS
+# Conceda permissões de "Controle total"
+```
+
+### Erro de chave da aplicação
+```bash
+php artisan key:generate
+```
+
+### Problemas com assets
+```bash
+npm run build
+php artisan view:clear
+```
+
+### Erro de conexão com MySQL
+- Verifique se o MySQL está rodando no XAMPP Control Panel
+- Confirme as credenciais no arquivo `.env`
+- Teste a conexão: `php artisan tinker` → `DB::connection()->getPdo();`
+
+### Erro 500 - Internal Server Error
+```bash
+# Verifique os logs
+tail -f storage/logs/laravel.log
+
+# Limpe todos os caches
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+php artisan route:clear
+```
+
+### Problemas com mod_rewrite
+- Certifique-se de que o mod_rewrite está habilitado no Apache
+- Verifique se o arquivo `.htaccess` existe na pasta `public/`
+- Para XAMPP, use `http://localhost/collect/public` se mod_rewrite não estiver funcionando
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 👥 Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📞 Suporte
+
+Para suporte, entre em contato através dos canais oficiais do projeto.
