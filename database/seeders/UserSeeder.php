@@ -17,10 +17,10 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Guilherme Carrera',
                 'username' => 'gacc1',
-                'email' => 'guuicarrera12@hotmail.com',
+                'email' => 'admin@admin.com',
                 'role' => 'admin',
                 'status' => 'active',
-                'password' => bcrypt('gui120696')
+                'password' => bcrypt('admin123')
             ],
 
             [
@@ -31,15 +31,6 @@ class UserSeeder extends Seeder
                 'status' => 'active',
                 'password' => bcrypt('123456')
             ],
-
-            [
-                'name' => 'User V',
-                'username' => 'user',
-                'email' => 'user@hotmail.com',
-                'role' => 'user',
-                'status' => 'active',
-                'password' => bcrypt('123456')
-            ]
         ]);
     }
 }
