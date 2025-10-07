@@ -61,7 +61,6 @@
             color: #fff;
             border-bottom: 1px solid #fff;
             padding-bottom: 10px;
-
         }
 
         .catcat p {
@@ -73,7 +72,7 @@
 
 
     <div class="container catcat text-center pt-5 h-100 position-relative">
-        <h2 class="mt-4">CATEGORIAS</h2>
+        <h2 class="my-5">CATEGORIAS</h2>
         <p>Conheaça o nosso trabalho e transformar seus ambientes com peças que são, de fato, feitas para você.</p>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @foreach ($categorias as $categoria)
