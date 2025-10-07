@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\ProdutoController;
 use App\Http\Controllers\Frontend\PortifolioController;
 
 Route::get('/', [FrontController::class, 'index']);
+Route::get('/sobre', [FrontController::class, 'sobre'])->name('sobre');
 Route::get('/produtos', [ProdutoController::class, 'getProdutos']);
 Route::get('/portifolio', [PortifolioController::class, 'index'])->name('portifolio.index');
 Route::get('categoria/{slug}', [PortifolioController::class, 'produtosPorCategoria'])->name('categoria.produtos');

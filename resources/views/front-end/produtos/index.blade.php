@@ -81,12 +81,10 @@
             color: #fff;
             padding-bottom: 5%;
         }
-
-
     </style>
 
     <div class="container produtos-container text-center pt-5 h-100 position-relative">
-        <h2 class="mt-4">{{ $categorias->nome }}</h2>
+        <h2 class="mt-5">{{ $categorias->nome }}</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="produtos-list">
             @foreach ($produtos as $prod)
                 <div class="col d-flex justify-content-center produto-item" data-id="{{ $prod->id }}">

@@ -15,7 +15,7 @@
                     <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Início</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('sobre') ? 'active' : '' }}" href="#">Sobre</a>
+                    <a class="nav-link {{ request()->is('sobre') ? 'active' : '' }}" href="{{ route('sobre') }}">Sobre</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('portfolio') ? 'active' : '' }}" href="/portifolio">Portfólio</a>

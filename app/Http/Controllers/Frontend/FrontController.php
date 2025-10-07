@@ -23,11 +23,19 @@ class FrontController extends Controller
 
         $produtosEmPromocao = $produtos->whereNotNull('promocao_id')->shuffle();
         $outrosProdutos = $produtos->whereNull('promocao_id')->shuffle();
-        $produtosSelecionados = $produtosEmPromocao->concat($outrosProdutos)->take(15);
+        $produtosSelecionados = $produtosEmPromocao->concat($outrosProdutos)->take(20);
 
         $itens = collect($sliders)->merge($promocoes)->shuffle();
 
         return view('front-end.index', compact('itens', 'produtosSelecionados'));
+    }
+
+    /**
+     * Display the sobre page.
+     */
+    public function sobre()
+    {
+        return view('front-end.sobre');
     }
 
 
