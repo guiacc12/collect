@@ -12,8 +12,7 @@ return new class extends Migration {
             $table->string('telefone')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('email')->nullable();
-            $table->string('quantidade_vendido')->nullable();
-            $table->string('valor_vendido')->nullable();
+            $table->decimal('comissao', 8, 2)->nullable();
             $table->timestamps();
         });
     }

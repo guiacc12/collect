@@ -38,17 +38,18 @@ class VendedorController extends Controller
         'nome' => 'required|string|max:255',
         'whatsapp' => 'required|url',
         'telefone' => 'required|string|max:20',
-        'email' => 'required|email|unique:users,email',
+        'email' => 'required|email|unique:users,email|unique:vendedors,email',
         'senha' => 'required|string|min:6',
+        'comissao' => 'required|numeric|min:0|max:100',
     ]);
 
-
-        $user = User::create([
-            'name' => $request->nome,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'vendor',
-        ]);
+    // Criação do usuário na tabela users
+    $user = User::create([
+        'name' => $request->nome,
+        'email' => $request->email,
+        'password' => Hash::make($request->senha),
+        'role' => 'vendor',
+    ]);
 
     // Criação do novo vendedor
     Vendedor::create([
@@ -56,6 +57,9 @@ class VendedorController extends Controller
         'whatsapp' => $request->whatsapp,
         'telefone' => $request->telefone,
         'email' => $request->email,
+        'senha' => Hash::make($request->senha),
+        'role' => 'vendor',
+        'comissao' => $request->comissao,
     ]);
 
     toastr()->success('Cadastrado com sucesso!');
@@ -75,18 +79,20 @@ class VendedorController extends Controller
      */
     public function edit(string $id)
     {
-    $vendedor = Vendedor::findOrFail($id);
+        $vendedor = Vendedor::findOrFail($id);
 
+        // Correção: buscar usuário pelo email, não pelo nome
+        $user = User::where('email', $vendedor->email)->first();
 
-    $user = User::where('email', $vendedor->nome)->first();
-
-    return response()->json([
-        'nome' => $vendedor->nome,
-        'telefone' => $vendedor->telefone,
-        'whatsapp' => $vendedor->whatsapp,
-        'email' => $vendedor->email ?? null,
-        'senha' => '',
-    ]);
+        return response()->json([
+            'nome' => $vendedor->nome,
+            'telefone' => $vendedor->telefone,
+            'whatsapp' => $vendedor->whatsapp,
+            'email' => $vendedor->email ?? null,
+            'role' => $vendedor->role ?? 'vendor',
+            'comissao' => $vendedor->comissao,
+            'senha' => '',
+        ]);
     }
 
     /**
@@ -94,38 +100,47 @@ class VendedorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-    $request->validate([
-        'nome' => 'required|string|max:255',
-        'whatsapp' => 'required|url',
-        'telefone' => 'required|string|max:20',
-        'email' => 'required|email',
-        'senha' => 'nullable|string|min:6',
-    ]);
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'whatsapp' => 'required|url',
+            'telefone' => 'required|string|max:20',
+            'email' => 'required|email',
+            'senha' => 'nullable|string|min:6',
+            'comissao' => 'required|numeric|min:0|max:100',
+        ]);
 
-    $vendedor = Vendedor::findOrFail($id);
+        $vendedor = Vendedor::findOrFail($id);
+        $oldEmail = $vendedor->email;
 
-    $oldEmail = $vendedor->email;
+        // Atualizar vendedor
+        $vendedor->nome = $request->nome;
+        $vendedor->telefone = $request->telefone;
+        $vendedor->whatsapp = $request->whatsapp;
+        $vendedor->email = $request->email;
+        $vendedor->comissao = $request->comissao;
 
-    $vendedor->nome = $request->nome;
-    $vendedor->telefone = $request->telefone;
-    $vendedor->whatsapp = $request->whatsapp;
-    $vendedor->email = $request->email;
-    $vendedor->save();
-
-    $user = User::where('email', $oldEmail)->first();
-    if ($user) {
-        $user->name = $request->nome;
-        $user->email = $request->email;
-
+        // Atualizar senha apenas se fornecida
         if (!empty($request->senha)) {
-            $user->password = Hash::make($request->senha);
+            $vendedor->senha = Hash::make($request->senha);
         }
 
-        $user->save();
-    }
+        $vendedor->save();
 
-    toastr()->success('Atualizado com sucesso!');
-    return redirect()->route('vendedor.index');
+        // Atualizar usuário correspondente na tabela users
+        $user = User::where('email', $oldEmail)->first();
+        if ($user) {
+            $user->name = $request->nome;
+            $user->email = $request->email;
+
+            if (!empty($request->senha)) {
+                $user->password = Hash::make($request->senha);
+            }
+
+            $user->save();
+        }
+
+        toastr()->success('Atualizado com sucesso!');
+        return redirect()->route('vendedor.index');
     }
 
     /**

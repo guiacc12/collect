@@ -50,7 +50,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulário para adicionar novo vendedor -->
-                    <form action="{{ route('vendedor.store') }}" method="POST">
+                    <form action="{{ route('vendedor.store') }}" method="POST" autocomplete="off">
                         @csrf
                         <div class="form-group">
                             <label for="nome">Nome</label>
@@ -70,12 +70,18 @@
                         <div class="form-group">
                             <label for="email">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="E-mail"
-                                required>
+                                autocomplete="new-email" required>
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha</label>
                             <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha"
-                                required>
+                                autocomplete="new-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="comissao">Comissão (%)</label>
+                            <input type="number" step="0.01" min="0" max="100" class="form-control" id="comissao" name="comissao"
+                                placeholder="Ex: 5.50 para 5.5%" required>
+                            <small class="form-text text-muted">Digite o percentual de comissão (ex: 5.5 para 5,5%)</small>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -101,7 +107,7 @@
                 <div class="modal-body">
 
                     <!-- Formulário para editar vendedor -->
-                    <form id="editVendedorForm" method="POST">
+                    <form id="editVendedorForm" method="POST" autocomplete="off">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
@@ -122,11 +128,18 @@
                         <div class="form-group">
                             <label for="email">E-mail</label>
                             <input type="email" class="form-control" id="edit_email" name="email" placeholder="E-mail"
-                                required>
+                                autocomplete="off" required>
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha</label>
-                            <input type="password" class="form-control" id="edit_senha" name="senha" placeholder="Senha">
+                            <input type="password" class="form-control" id="edit_senha" name="senha" placeholder="Senha"
+                                autocomplete="new-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_comissao">Comissão (%)</label>
+                            <input type="number" step="0.01" min="0" max="100" class="form-control" id="edit_comissao" name="comissao"
+                                placeholder="Ex: 5.50 para 5.5%" required>
+                            <small class="form-text text-muted">Digite o percentual de comissão (ex: 5.5 para 5,5%)</small>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -196,6 +209,7 @@
                         if ($('#edit_whatsapp').length) $('#edit_whatsapp').val(response.whatsapp);
                         if ($('#edit_email').length) $('#edit_email').val(response.email);
                         if ($('#edit_senha').length) $('#edit_senha').val('');
+                        if ($('#edit_comissao').length) $('#edit_comissao').val(response.comissao);
 
                         $('#editVendedorForm').attr('action', '/admin/vendedor/' + vendedorId);
                     }
@@ -301,6 +315,18 @@
             $(document).ready(function() {
                 $('.close, .btn-secondary').click(function() {
                     $('.modal').modal('hide'); // Fecha o modal quando o botão "Fechar" for clicado
+                });
+
+                // Limpa os campos quando o modal de adicionar vendedor for aberto
+                $('#addVendedorModal').on('show.bs.modal', function() {
+                    $(this).find('form')[0].reset(); // Reseta o formulário
+                    $(this).find('input[type="email"]').val('');
+                    $(this).find('input[type="password"]').val('');
+                });
+
+                // Limpa os campos quando o modal de editar vendedor for aberto
+                $('#editVendedorModal').on('show.bs.modal', function() {
+                    $(this).find('input[type="password"]').val(''); // Limpa apenas a senha
                 });
             });
         </script>

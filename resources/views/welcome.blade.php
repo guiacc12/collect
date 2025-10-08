@@ -18,25 +18,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('backend/assets/css/frontend-style.css') }}">
-
-
-
-    <style>
-        .navbar {
-            width: 100% !important;
-            left: 0 !important;
-            right: 0 !important;
-        }
-
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            overflow-x: hidden;
-
-        }
-    </style>
 </head>
 
 

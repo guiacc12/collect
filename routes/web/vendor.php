@@ -8,3 +8,11 @@ Route::get('vendor/dashboard', [VendorController::class, 'dashboard'])
 ->middleware(['auth', 'vendor'])
 ->name('vendor.dashboard');
 
+Route::get('vendor/vendas/data', [VendorController::class, 'getVendasData'])
+->middleware(['auth', 'vendor'])
+->name('vendor.vendas.data');
+
+Route::get('vendor/stats/periodo', [VendorController::class, 'getStatsByPeriod'])
+->middleware(['auth', 'vendor'])
+->name('vendor.stats.periodo');
+

@@ -38,6 +38,20 @@ class FrontController extends Controller
         return view('front-end.sobre');
     }
 
+    /**
+     * Display products from a specific promotion.
+     */
+    public function produtosPromocao($id)
+    {
+        $promocao = Promocao::findOrFail($id);
+        $produtos = Produto::where('promocao_id', $id)
+                          ->where('status', 1)
+                          ->with('categoria')
+                          ->paginate(12);
+
+        return view('front-end.promocao.produtos', compact('promocao', 'produtos'));
+    }
+
 
 
     /**
