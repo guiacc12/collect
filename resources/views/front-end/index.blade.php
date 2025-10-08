@@ -31,8 +31,24 @@
                             @php
                                 $imagePath = isset($item->banner) ? $item->banner : $item->imagem;
                             @endphp
-                            <img class="d-block w-100" src="{{ asset($imagePath) }}"
-                                alt="{{ $item->titulo ?? 'Promoção' }}">
+                            
+                            @if (get_class($item) === 'App\Models\Promocao')
+                                {{-- Imagem clicável apenas para promoções --}}
+                                <a href="{{ route('promocao.produtos', $item->id) }}">
+                                    <img class="d-block w-100" src="{{ asset($imagePath) }}"
+                                        alt="{{ $item->titulo ?? 'Promoção' }}">
+                                </a>
+                                
+                                <div class="carousel-caption banner-promo-overlay">
+                                    <a href="{{ route('promocao.produtos', $item->id) }}" class="banner-promo-btn">
+                                        VEJA PRODUTOS
+                                    </a>
+                                </div>
+                            @else
+                                {{-- Imagem não clicável para sliders --}}
+                                <img class="d-block w-100" src="{{ asset($imagePath) }}"
+                                    alt="{{ $item->titulo ?? 'Slider' }}">
+                            @endif
                         </div>
                     @endforeach
                 </div>
@@ -91,33 +107,29 @@
                             <div class="custom-carousel-item">
                                 <a href="{{ url('front-end/show/' . $produto->categoria->slug . '/' . $produto->slug) }}"
                                     style="text-decoration: none">
-                                    <div class="card p-2"
-                                        style="width: 290px; height: 440px; background: #ebe3d6; overflow: hidden; display: flex; flex-direction: column;">
-                                        <div class="card-body"
-                                            style="padding: 15px; color: #000; text-align: left; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                                            <h4 class="card-title"
-                                                style="font-size: 20px; font-weight: bold; margin-bottom: 5px;">
-                                                {{ $produto->titulo }}
-                                            </h4>
-
-                                            <div style="width: 100%; height: 320px; overflow: hidden;">
-                                                <img src="{{ asset($produto->imagem) }}" alt="{{ $produto->titulo }}"
-                                                    style="width: 100%; height: 100%; object-fit: cover;">
+                                    <div class="produto-card-carousel">
+                                        <div class="produto-card-image">
+                                            <img src="{{ asset($produto->imagem) }}" alt="{{ $produto->titulo }}">
+                                            <div class="produto-card-overlay">
+                                                <div class="produto-card-hover-content">
+                                                    <span class="produto-card-view-btn">Ver Produto</span>
+                                                </div>
                                             </div>
-                                            <div>
+                                        </div>
+                                        <div class="produto-card-content">
+                                            <h4 class="produto-card-title">{{ $produto->titulo }}</h4>
+                                            <div class="produto-card-price">
                                                 @if ($produto->promocao_id && $produto->valor_promocional)
-                                                    <p class="text-danger"
-                                                        style="font-size: 14px; margin-bottom: 5px; text-align: right">
-                                                        <s>de R$ {{ number_format($produto->valor, 2, ',', '.') }}</s>
-                                                    </p>
-                                                    <p class="font-weight-bold" style="font-size: 16px; text-align: right">
-                                                        Por R$
-                                                        {{ number_format($produto->valor_promocional, 2, ',', '.') }}
-                                                    </p>
-                                                @else
-                                                    <p class="font-weight-bold" style="font-size: 16px; text-align: right;">
+                                                    <span class="produto-price-original">
                                                         R$ {{ number_format($produto->valor, 2, ',', '.') }}
-                                                    </p>
+                                                    </span>
+                                                    <span class="produto-price-promo">
+                                                        R$ {{ number_format($produto->valor_promocional, 2, ',', '.') }}
+                                                    </span>
+                                                @else
+                                                    <span class="produto-price-normal">
+                                                        R$ {{ number_format($produto->valor, 2, ',', '.') }}
+                                                    </span>
                                                 @endif
                                             </div>
                                         </div>

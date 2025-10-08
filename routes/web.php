@@ -14,6 +14,7 @@ Route::get('/produtos', [ProdutoController::class, 'getProdutos']);
 Route::get('/portifolio', [PortifolioController::class, 'index'])->name('portifolio.index');
 Route::get('categoria/{slug}', [PortifolioController::class, 'produtosPorCategoria'])->name('categoria.produtos');
 Route::get('front-end/show/{categoria}/{produto}', [PortifolioController::class, 'show'])->name('produto.show');
+Route::get('promocao/{id}/produtos', [FrontController::class, 'produtosPromocao'])->name('promocao.produtos');
 
 foreach(File::allFiles(__DIR__.'/web') as $route_file){
     require $route_file->getPathname();
