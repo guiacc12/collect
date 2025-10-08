@@ -1,0 +1,373 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ProdutoSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        // Opcional: Limpar a tabela antes de popular
+        // DB::table('produtos')->truncate();
+
+        DB::table('produtos')->insert([
+            [
+                'id' => 10,
+                'categoria_id' => 4,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee92b2d1c2b-collect-31-03-25-.svg',
+                'titulo' => 'CHAISE EUROPA TRAMA X',
+                'descricao' => "VALOR CONJUNTO ILUSTRADO\n\nDIAMETRO 0,90:\nR$2.7...\nDIAMETRO 1,20:\nR$3.465,00",
+                'valor' => 2787,
+                'valor_promocional' => 2500.00,
+                'slug' => 'chaise-europa-trama-x',
+                'status' => null,
+                'created_at' => '2025-03-31 16:54:37',
+                'updated_at' => '2025-10-08 13:50:54',
+            ],
+            [
+                'id' => 11,
+                'categoria_id' => 4,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee931d5e05a-collect-31-03-25-.svg',
+                'titulo' => 'CHAISE TRADICIONAL TRAMA TELINHA',
+                'descricao' => "DIAMETRO 1,30:\nR$...\n\nDIAMETRO 1,20\nR$2.707,00",
+                'valor' => 3465,
+                'valor_promocional' => 3000.00,
+                'slug' => 'chaise-tradicional-trama-telinha',
+                'status' => null,
+                'created_at' => '2025-03-31 16:55:41',
+                'updated_at' => '2025-10-08 13:50:54',
+            ],
+            [
+                'id' => 12,
+                'categoria_id' => 4,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee9a0be5a4e-collect-31-03-25-.svg',
+                'titulo' => 'CHAISE TRADICIONAL TRAMA VAI E VEM',
+                'descricao' => "DIAMETRO 1,30:\nR$...\n\nDIAMETRO 1,20:\nR$3.300,00",
+                'valor' => 2787,
+                'valor_promocional' => 2400.00,
+                'slug' => 'chaise-tradicional-trama-vai-e-vem',
+                'status' => null,
+                'created_at' => '2025-03-31 16:57:20',
+                'updated_at' => '2025-10-08 13:50:54',
+            ],
+            [
+                'id' => 13,
+                'categoria_id' => 4,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee9a5ca39b8-collect-31-03-25-.svg',
+                'titulo' => 'CHAISE BAULADA',
+                'descricao' => "DIAMETRO 1,30:\nR...",
+                'valor' => 3300,
+                'valor_promocional' => null,
+                'slug' => 'chaise-baulada',
+                'status' => null,
+                'created_at' => '2025-03-31 16:58:02',
+                'updated_at' => '2025-03-31 16:58:02',
+            ],
+            [
+                'id' => 14,
+                'categoria_id' => 9,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee9ac1c09ab-collect-31-03-25-.svg',
+                'titulo' => 'CONJUNTO SOFÁ BARCELONA',
+                'descricao' => "2 - MÓDULOS LATERAIS 1,59M SENDO 0,30M MESINHA+...",
+                'valor' => 21977,
+                'valor_promocional' => 19999.00,
+                'slug' => 'conjunto-sofa-barcelona',
+                'status' => null,
+                'created_at' => '2025-03-31 17:00:17',
+                'updated_at' => '2025-03-31 22:40:58',
+            ],
+            [
+                'id' => 15,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee9b1fe5fea-collect-31-03-25-.svg',
+                'titulo' => 'CONJUNTO DE SOFÁ LOTUS',
+                'descricao' => "DIMENSÕES:\nPROFUNDIDADE TOTAL - 0,80M\nALTURA D...",
+                'valor' => 14074,
+                'valor_promocional' => null,
+                'slug' => 'conjunto-de-sofa-lotus',
+                'status' => null,
+                'created_at' => '2025-03-31 17:01:37',
+                'updated_at' => '2025-03-31 17:01:37',
+            ],
+            [
+                'id' => 16,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee9c4c4c74b-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ MARROCOS',
+                'descricao' => "DIMENSÕES:\nSOFÁ MARROCOS -\nLARGURA TOTAL - 2,10...",
+                'valor' => 23806,
+                'valor_promocional' => null,
+                'slug' => 'sofa-marrocos',
+                'status' => null,
+                'created_at' => '2025-03-31 17:08:04',
+                'updated_at' => '2025-03-31 17:08:04',
+            ],
+            [
+                'id' => 17,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee9d16947ae-collect-31-03-25-.svg',
+                'titulo' => 'NAMORADEIRA EXCLUSIVA',
+                'descricao' => "NAMORADEIRA EXCLUSIVA:\nLARGURA TOT...\nDESCRIÇÃO",
+                'valor' => 12510,
+                'valor_promocional' => null,
+                'slug' => 'namoradeira-exclusiva',
+                'status' => null,
+                'created_at' => '2025-03-31 17:12:06',
+                'updated_at' => '2025-03-31 17:12:06',
+            ],
+            [
+                'id' => 18,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee9d7be97b9-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ VINALES',
+                'descricao' => "SOFÁ VINALES TRAMA FECHADA CN PÉ EM M...",
+                'valor' => 20678,
+                'valor_promocional' => null,
+                'slug' => 'sofa-vinales',
+                'status' => null,
+                'created_at' => '2025-03-31 17:14:54',
+                'updated_at' => '2025-03-31 17:14:54',
+            ],
+            [
+                'id' => 19,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee9e0f39b27-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ VIENA',
+                'descricao' => "SOFÁ VIENA ON PE EM MADEIRA CUMARU\n...\nDESCRIÇÃO",
+                'valor' => 13257,
+                'valor_promocional' => null,
+                'slug' => 'sofa-viena',
+                'status' => null,
+                'created_at' => '2025-03-31 17:17:35',
+                'updated_at' => '2025-03-31 17:17:35',
+            ],
+            [
+                'id' => 20,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ee9f8b1bbe5-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ NAPOLES',
+                'descricao' => "SOFÁ NAPOLES CORDA NAUTICA LARGURA T.\nDESCRIÇÃO",
+                'valor' => 12406,
+                'valor_promocional' => null,
+                'slug' => 'sofa-napoles',
+                'status' => null,
+                'created_at' => '2025-03-31 17:23:13',
+                'updated_at' => '2025-03-31 17:23:13',
+            ],
+            [
+                'id' => 21,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea0743037c-collect-31-03-25-.svg',
+                'titulo' => 'NAMORADEIRA TAJ - TRAMA VAI E VEM',
+                'descricao' => "NAMORADEIRA TAJ TRAMA VAI E VEM ON\n...\nDESCRIÇÃO",
+                'valor' => 6144,
+                'valor_promocional' => null,
+                'slug' => 'namoradeira-taj-trama-vai-e-vem',
+                'status' => null,
+                'created_at' => '2025-03-31 17:26:20',
+                'updated_at' => '2025-03-31 17:26:20',
+            ],
+            [
+                'id' => 22,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea0f2baba6-collect-31-03-25-.svg',
+                'titulo' => 'NAMORADEIRA TAJ - TRAMA "X"',
+                'descricao' => "NAMORADEIRA TAJ TRAMA \"X\" ON LARGURA.\nDESCRIÇÃO",
+                'valor' => 6530,
+                'valor_promocional' => null,
+                'slug' => 'namoradeira-taj-trama-x',
+                'status' => null,
+                'created_at' => '2025-03-31 17:28:34',
+                'updated_at' => '2025-03-31 17:28:34',
+            ],
+            [
+                'id' => 23,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea16ae5799-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ MACRAME',
+                'descricao' => "SOFÁ MACRAME EM CORDA NAUTICA LARGUR...\nDESCRIÇÃO",
+                'valor' => 13178,
+                'valor_promocional' => null,
+                'slug' => 'sofa-macrame',
+                'status' => null,
+                'created_at' => '2025-03-31 17:30:34',
+                'updated_at' => '2025-03-31 17:30:34',
+            ],
+            [
+                'id' => 24,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea1ef0a67a-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ LAES',
+                'descricao' => "SOFÁ LAES EM CORDA NAUTICA LARGURA...\nDESCRIÇÃO",
+                'valor' => 21595,
+                'valor_promocional' => null,
+                'slug' => 'sofa-laes',
+                'status' => null,
+                'created_at' => '2025-03-31 17:32:23',
+                'updated_at' => '2025-03-31 17:32:23',
+            ],
+            [
+                'id' => 25,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea25a11641-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ ROMA',
+                'descricao' => "SOFÁ ROMA 4 LUGARES EM CORDA NAUTICA\nDESCRIÇÃO",
+                'valor' => 26600,
+                'valor_promocional' => null,
+                'slug' => 'sofa-roma',
+                'status' => null,
+                'created_at' => '2025-03-31 17:34:34',
+                'updated_at' => '2025-03-31 17:34:34',
+            ],
+            [
+                'id' => 26,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea2cd994c5-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ AUSTRALIA',
+                'descricao' => "SOFÁ AUSTRALIA EM CORDA NAUTICA LARG.\nDESCRIÇÃO",
+                'valor' => 11870,
+                'valor_promocional' => null,
+                'slug' => 'sofa-australia',
+                'status' => null,
+                'created_at' => '2025-03-31 17:36:37',
+                'updated_at' => '2025-03-31 17:36:37',
+            ],
+            [
+                'id' => 27,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea33b0a918-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ MILLENIUM',
+                'descricao' => "SOFÁ MILLENIUM EM CORDA NAUTICA LARG.\nDESCRIÇÃO",
+                'valor' => 17830,
+                'valor_promocional' => null,
+                'slug' => 'sofa-millenium',
+                'status' => null,
+                'created_at' => '2025-03-31 17:38:19',
+                'updated_at' => '2025-03-31 17:38:19',
+            ],
+            [
+                'id' => 28,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea50d0793f-collect-31-03-25-.svg',
+                'titulo' => 'CONJUNTO DE SOFÁ CANADÁ',
+                'descricao' => "CONJUNTO DE SOFÁ CANADA TODOS OS MÓD.\nDESCRIÇÃO",
+                'valor' => 34200,
+                'valor_promocional' => null,
+                'slug' => 'conjunto-de-sofa-canada',
+                'status' => null,
+                'created_at' => '2025-03-31 17:45:01',
+                'updated_at' => '2025-03-31 17:45:01',
+            ],
+            [
+                'id' => 29,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea56600915-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ ANTARES',
+                'descricao' => "SOFÁ ANTARES EM CORDA NAUTICA LARGUR...\nDESCRIÇÃO",
+                'valor' => 13809,
+                'valor_promocional' => null,
+                'slug' => 'sofa-antares',
+                'status' => null,
+                'created_at' => '2025-03-31 17:46:46',
+                'updated_at' => '2025-03-31 17:46:46',
+            ],
+            [
+                'id' => 30,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea5e49dab5-collect-31-03-25-.svg',
+                'titulo' => 'SOFÁ TAILANDIA',
+                'descricao' => "SOFA TAILANDIA EM CORDA NAUTICA LAR...\nDESCRIÇÃO",
+                'valor' => 17830,
+                'valor_promocional' => null,
+                'slug' => 'sofa-tailandia',
+                'status' => null,
+                'created_at' => '2025-03-31 17:48:36',
+                'updated_at' => '2025-03-31 17:48:36',
+            ],
+            [
+                'id' => 31,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea67a00ca8-collect-31-03-25-.svg',
+                'titulo' => 'CONJUNTO MONACO',
+                'descricao' => "CONJUNTO MONACO EM TRICÔ NAUTICO LAR...\nDESCRIÇÃO",
+                'valor' => 16965,
+                'valor_promocional' => null,
+                'slug' => 'conjunto-monaco',
+                'status' => null,
+                'created_at' => '2025-03-31 17:50:40',
+                'updated_at' => '2025-03-31 17:50:40',
+            ],
+            [
+                'id' => 32,
+                'categoria_id' => 5,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67eea6b005828-collect-31-03-25-.svg',
+                'titulo' => 'POLTRONA RAINHA',
+                'descricao' => "ESTRUTURA EM ALUMINIO PINTURA ELETROST...\nDESCRIÇÃO",
+                'valor' => 3970,
+                'valor_promocional' => null,
+                'slug' => 'poltrona-rainha',
+                'status' => 1,
+                'created_at' => '2025-03-31 17:51:40',
+                'updated_at' => '2025-03-31 17:51:40',
+            ],
+            [
+                'id' => 33,
+                'categoria_id' => 8,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ebc7b2b59bb-collect-01-04-25-.svg',
+                'titulo' => 'ESPREGUIÇADEIRA ITAPEMA',
+                'descricao' => "ESPREGUIÇADEIRA ITAPEMA TRICÔ NÁUTICO...\nDESCRIÇÃO",
+                'valor' => 3390,
+                'valor_promocional' => null,
+                'slug' => 'espreguicadeira-itapema',
+                'status' => null,
+                'created_at' => '2025-04-01 08:02:10',
+                'updated_at' => '2025-04-01 08:02:10',
+            ],
+            [
+                'id' => 34,
+                'categoria_id' => 8,
+                'promocao_id' => null, // Definido como null
+                'imagem' => 'uploads/media_67ebc7e2293f6-collect-01-04-25-.svg',
+                'titulo' => 'ESPREGUIÇADEIRA SLING',
+                'descricao' => "ESPREGUIÇADEIRA EM TELA SLING ESPE...",
+                'valor' => 2692,
+                'valor_promocional' => null,
+                'slug' => 'espreguicadeira-sling',
+                'status' => null,
+                'created_at' => '2025-04-01 08:03:11',
+                'updated_at' => '2025-04-01 08:03:11',
+            ],
+        ]);
+    }
+}
