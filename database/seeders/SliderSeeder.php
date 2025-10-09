@@ -29,7 +29,7 @@ class SliderSeeder extends Seeder
             ],
             [
                 'id' => 11,
-                'banner' => 'uploads/media_67e21ff72091b7-collect-25-03-25-.svg',
+                'banner' => 'uploads/media_67e21f72091b7-collect-25-03-25-.svg',
                 'titulo' => 'Banner2',
                 'descricao' => null,
                 'starting_price' => null,
@@ -41,7 +41,7 @@ class SliderSeeder extends Seeder
             ],
             [
                 'id' => 12,
-                'banner' => 'uploads/media_67e21ff7c8aa60-collect-25-03-25-.svg',
+                'banner' => 'uploads/media_67e21f7c8aa60-collect-25-03-25-.svg',
                 'titulo' => 'Banner3',
                 'descricao' => null,
                 'starting_price' => null,
