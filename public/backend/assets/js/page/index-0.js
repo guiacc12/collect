@@ -1,6 +1,13 @@
 "use strict";
 
-var statistics_chart = document.getElementById("myChart").getContext('2d');
+// Verificar se o elemento existe antes de tentar usar
+var chartElement = document.getElementById("myChart");
+if (!chartElement) {
+    console.warn('Elemento myChart não encontrado');
+    return;
+}
+
+var statistics_chart = chartElement.getContext('2d');
 
 var myChart = new Chart(statistics_chart, {
   type: 'line',
@@ -41,8 +48,10 @@ var myChart = new Chart(statistics_chart, {
   }
 });
 
-$('#visitorMap').vectorMap(
-{
+// Verificar se o elemento do mapa existe
+if ($('#visitorMap').length > 0) {
+    $('#visitorMap').vectorMap(
+    {
   map: 'world_en',
   backgroundColor: '#ffffff',
   borderColor: '#f2f2f2',
@@ -71,10 +80,13 @@ $('#visitorMap').vectorMap(
     tr: '<div class="jqvmap-circle"></div>',
   },
 });
+}
 
 // weather
-getWeather();
-setInterval(getWeather, 600000);
+if ($('#myWeather').length > 0) {
+  getWeather();
+  setInterval(getWeather, 600000);
+}
 
 function getWeather() {
   $.simpleWeather({

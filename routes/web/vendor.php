@@ -16,3 +16,11 @@ Route::get('vendor/stats/periodo', [VendorController::class, 'getStatsByPeriod']
 ->middleware(['auth', 'vendor'])
 ->name('vendor.stats.periodo');
 
+Route::post('vendor/vendas/store', [VendorController::class, 'storeVenda'])
+->middleware(['auth', 'vendor'])
+->name('vendor.vendas.store');
+
+Route::delete('vendor/vendas/{id}', [VendorController::class, 'deleteVenda'])
+->middleware(['auth', 'vendor'])
+->name('vendor.vendas.delete');
+

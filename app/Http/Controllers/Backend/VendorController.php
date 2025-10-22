@@ -103,8 +103,11 @@ class VendorController extends Controller
                 return $venda->created_at->format('d/m/Y H:i');
             })
             ->addColumn('actions', function ($venda) {
-                return '<button class="btn btn-sm btn-info" onclick="verDetalhes('.$venda->id.')">
+                return '<button class="btn btn-sm btn-info mr-1" onclick="verDetalhes('.$venda->id.')">
                     <i class="fas fa-eye"></i> Detalhes
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="excluirVenda('.$venda->id.')">
+                    <i class="fas fa-trash"></i> Excluir
                 </button>';
             })
             ->rawColumns(['status_badge', 'actions'])
@@ -150,5 +153,87 @@ class VendorController extends Controller
             'periodo_formatado' => Carbon::parse($dataInicio)->format('d/m/Y') . ' - ' . Carbon::parse($dataFim)->format('d/m/Y')
         ]);
     }
-}
 
+    public function storeVenda(Request $request)
+    {
+        $user = Auth::user();
+        $vendedor = Vendedor::where('email', $user->email)->first();
+
+        if (!$vendedor) {
+            return response()->json(['error' => 'Vendedor não encontrado'], 404);
+        }
+
+        // Validar dados
+        $request->validate([
+            'comprador_nome' => 'required|string|max:255',
+            'valor_venda' => 'required|numeric|min:0.01',
+            'descricao' => 'required|string|max:2000',
+            'cpf_cnpj' => 'nullable|string|max:20',
+            'cep' => 'nullable|string|max:10',
+            'rua' => 'nullable|string|max:255',
+            'numero' => 'nullable|string|max:20',
+            'bairro' => 'nullable|string|max:100',
+            'cidade' => 'nullable|string|max:100',
+            'estado' => 'nullable|string|max:2',
+            'complemento' => 'nullable|string|max:255',
+        ]);
+
+        try {
+            $vendaData = $request->only([
+                'comprador_nome', 'valor_venda', 'descricao',
+                'cpf_cnpj', 'cep', 'rua', 'numero', 'bairro', 'cidade', 'estado', 'complemento'
+            ]);
+            $vendaData['vendedor_id'] = $vendedor->id;
+            $vendaData['status'] = false; // Venda pendente por padrão
+            $venda = Venda::create($vendaData);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Venda cadastrada com sucesso!',
+                'venda_id' => $venda->id
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao cadastrar venda: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function deleteVenda($id)
+    {
+        $user = Auth::user();
+        $vendedor = Vendedor::where('email', $user->email)->first();
+
+        if (!$vendedor) {
+            return response()->json(['error' => 'Vendedor não encontrado'], 404);
+        }
+
+        try {
+            $venda = Venda::where('id', $id)->where('vendedor_id', $vendedor->id)->first();
+
+            if (!$venda) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Venda não encontrada ou você não tem permissão para excluí-la.'
+                ], 404);
+            }
+
+            $venda->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Venda excluída com sucesso!'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao excluir venda: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+
+}

@@ -260,9 +260,7 @@
                                     <thead class="thead">
                                         <tr>
                                             <th><i class="fas fa-calendar mr-1"></i>Data</th>
-                                            <th><i class="fas fa-box mr-1"></i>Produto</th>
                                             <th><i class="fas fa-user mr-1"></i>Cliente</th>
-                                            <th class="d-none d-lg-table-cell"><i class="fas fa-sort-numeric-up mr-1"></i>Qtd</th>
                                             <th class="d-none d-md-table-cell"><i class="fas fa-dollar-sign mr-1"></i>Valor</th>
                                             <th class="d-none d-lg-table-cell"><i class="fas fa-map-marker-alt mr-1"></i>Estado</th>
                                             <th><i class="fas fa-flag mr-1"></i>Status</th>
@@ -288,39 +286,29 @@
                         <span>&times;</span>
                     </button>
                 </div>
-                <form id="novaVendaForm" action="#" method="POST">
+                <form id="novaVendaForm" action="{{ route('vendor.vendas.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
+
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Nome do Produto</label>
-                                    <input type="text" class="form-control" name="produto_nome" required>
-                                </div>
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nome do Comprador</label>
                                     <input type="text" class="form-control" name="comprador_nome" required>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Valor Total da Venda</label>
+                                    <input type="number" class="form-control" name="valor_venda" step="0.01" required>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Quantidade</label>
-                                    <input type="number" class="form-control" name="quantidade" min="1"
-                                        required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Valor da Venda</label>
-                                    <input type="number" class="form-control" name="valor_venda" step="0.01"
-                                        required>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label>Descrição dos Produtos Vendidos</label>
+                            <textarea class="form-control" name="descricao" rows="3" placeholder="Ex: 2x Balanço R$500,00; 1x Cadeira R$100,00" required></textarea>
+                            <small class="form-text text-muted">Detalhe os produtos vendidos e seus valores.</small>
                         </div>
 
                         <div class="row">
@@ -333,7 +321,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>CEP</label>
-                                    <input type="text" class="form-control" name="cep">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="cep" id="cep" placeholder="00000-000" maxlength="9">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="cep-loading" style="display: none;">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <small class="form-text text-muted">Digite o CEP para buscar o endereço automaticamente</small>
                                 </div>
                             </div>
                         </div>
@@ -342,13 +338,13 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label>Rua</label>
-                                    <input type="text" class="form-control" name="rua">
+                                    <input type="text" class="form-control" name="rua" id="rua" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Número</label>
-                                    <input type="text" class="form-control" name="numero">
+                                    <input type="text" class="form-control" name="numero" id="numero">
                                 </div>
                             </div>
                         </div>
@@ -357,19 +353,19 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Bairro</label>
-                                    <input type="text" class="form-control" name="bairro">
+                                    <input type="text" class="form-control" name="bairro" id="bairro" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Cidade</label>
-                                    <input type="text" class="form-control" name="cidade">
+                                    <input type="text" class="form-control" name="cidade" id="cidade" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Estado</label>
-                                    <select class="form-control" name="estado">
+                                    <select class="form-control" name="estado" id="estado">
                                         <option value="">Selecione...</option>
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
@@ -405,7 +401,7 @@
 
                         <div class="form-group">
                             <label>Complemento</label>
-                            <input type="text" class="form-control" name="complemento">
+                            <input type="text" class="form-control" name="complemento" id="complemento">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -418,6 +414,24 @@
 </section>
 <!-- END Main Content -->
 @endsection
+
+@push('styles')
+<style>
+    .form-control[readonly] {
+        background-color: #f8f9fa;
+        cursor: pointer;
+    }
+
+    .form-control[readonly]:hover {
+        background-color: #e9ecef;
+    }
+
+    .cep-loading {
+        background-color: #fff3cd !important;
+        color: #856404;
+    }
+</style>
+@endpush
 
 @push('scripts')
 <script>
@@ -440,17 +454,8 @@
                     name: 'created_at'
                 },
                 {
-                    data: 'produto_nome',
-                    name: 'produto_nome'
-                },
-                {
                     data: 'comprador_nome',
                     name: 'comprador_nome'
-                },
-                {
-                    data: 'quantidade',
-                    name: 'quantidade',
-                    className: 'd-none d-lg-table-cell'
                 },
                 {
                     data: 'valor_formatado',
@@ -475,7 +480,7 @@
                 }
             ],
             order: [
-                [6, 'asc'],
+                [4, 'asc'],
                 [0, 'desc']
             ], // Ordena por status primeiro, depois por data
             language: {
@@ -504,6 +509,115 @@
         // Limpar formulário quando modal abrir
         $('#novaVendaModal').on('show.bs.modal', function() {
             $('#novaVendaForm')[0].reset();
+            limparCamposEndereco();
+        });
+
+        // Máscara para CEP e validação
+        $('#cep').on('input', function() {
+            let valor = $(this).val().replace(/\D/g, '');
+
+            // Aplicar máscara
+            if (valor.length > 5) {
+                valor = valor.replace(/^(\d{5})(\d)/, '$1-$2');
+            }
+            $(this).val(valor);
+
+            // Remover bordas de erro se estava com erro
+            $(this).removeClass('is-invalid');
+
+            // Se o CEP tiver 8 dígitos (sem hífen), buscar endereço
+            const cepLimpo = valor.replace(/\D/g, '');
+            if (cepLimpo.length === 8) {
+                buscarEnderecoPorCep(cepLimpo);
+            } else if (cepLimpo.length > 0) {
+                // Limpar campos se o CEP for inválido
+                limparCamposEndereco();
+            }
+        });
+
+        // Validar CEP ao sair do campo
+        $('#cep').on('blur', function() {
+            const cep = $(this).val().replace(/\D/g, '');
+            if (cep.length > 0 && cep.length !== 8) {
+                $(this).addClass('is-invalid');
+                mostrarErroCep('CEP deve ter 8 dígitos');
+            }
+        });
+
+        // Permitir edição dos campos de endereço ao clicar
+        $('#rua, #bairro, #cidade').on('click', function() {
+            $(this).prop('readonly', false).focus();
+        });
+
+        // Submissão do formulário de nova venda via AJAX
+        $('#novaVendaForm').on('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const submitBtn = $('#novaVendaForm button[type="submit"]');
+            const originalText = submitBtn.html();
+
+            // Desabilitar botão e mostrar loading
+            submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Salvando...');
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            $('#novaVendaModal').modal('hide');
+                            $('#novaVendaForm')[0].reset();
+                            limparCamposEndereco();
+
+                            // Recarregar a tabela de vendas
+                            if (vendasTable) {
+                                vendasTable.ajax.reload();
+                            }
+
+                            // Opcionalmente, recarregar a página para atualizar estatísticas
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Erro!',
+                            text: response.message,
+                            icon: 'error'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    let message = 'Erro ao salvar venda.';
+
+                    if (xhr.responseJSON && xhr.responseJSON.errors) {
+                        // Erros de validação
+                        const errors = xhr.responseJSON.errors;
+                        message = Object.values(errors).flat().join('<br>');
+                    } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                        message = xhr.responseJSON.message;
+                    }
+
+                    Swal.fire({
+                        title: 'Erro!',
+                        html: message,
+                        icon: 'error'
+                    });
+                },
+                complete: function() {
+                    // Reabilitar botão
+                    submitBtn.prop('disabled', false).html(originalText);
+                }
+            });
         });
 
         // Buscar dados por período (estatísticas)
@@ -622,6 +736,151 @@
             text: 'Funcionalidade em desenvolvimento...',
             icon: 'info'
         });
+    }
+
+    function excluirVenda(id) {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: 'Esta ação não pode ser desfeita!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `/vendor/vendas/${id}`,
+                    type: 'DELETE',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                title: 'Excluída!',
+                                text: response.message,
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+
+                            // Recarregar a tabela
+                            if (vendasTable) {
+                                vendasTable.ajax.reload();
+                            }
+
+                            // Recarregar a página após 2 segundos para atualizar estatísticas
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            Swal.fire({
+                                title: 'Erro!',
+                                text: response.message,
+                                icon: 'error'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        let message = 'Erro ao excluir venda.';
+
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        }
+
+                        Swal.fire({
+                            title: 'Erro!',
+                            text: message,
+                            icon: 'error'
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    function buscarEnderecoPorCep(cep) {
+        // Validar formato do CEP
+        if (!/^\d{8}$/.test(cep)) {
+            return;
+        }
+
+        // Mostrar loading
+        $('#cep-loading').show();
+        $('#rua, #bairro, #cidade').val('Buscando...').addClass('cep-loading').prop('readonly', true);
+        $('#estado').val('');
+
+        // Fazer requisição para a API ViaCEP
+        $.ajax({
+            url: `https://viacep.com.br/ws/${cep}/json/`,
+            type: 'GET',
+            dataType: 'json',
+            timeout: 10000,
+            success: function(data) {
+                // Esconder loading e remover classe
+                $('#cep-loading').hide();
+                $('#rua, #bairro, #cidade').removeClass('cep-loading');
+
+                if (data.erro) {
+                    mostrarErroCep('CEP não encontrado');
+                    return;
+                }
+
+                // Preencher os campos com os dados retornados
+                $('#rua').val(data.logradouro || '').prop('readonly', !!data.logradouro);
+                $('#bairro').val(data.bairro || '').prop('readonly', !!data.bairro);
+                $('#cidade').val(data.localidade || '').prop('readonly', !!data.localidade);
+                $('#estado').val(data.uf || '');
+
+                // Focar no campo número se o endereço foi preenchido
+                if (data.logradouro) {
+                    $('#numero').focus();
+                }
+
+                // Mostrar sucesso se todos os campos foram preenchidos
+                if (data.logradouro && data.bairro && data.localidade && data.uf) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        text: 'Endereço encontrado com sucesso!',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                // Esconder loading e remover classe
+                $('#cep-loading').hide();
+                $('#rua, #bairro, #cidade').removeClass('cep-loading');
+                console.error('Erro ao buscar CEP:', error);
+
+                let mensagem = 'Erro ao buscar CEP. Verifique sua conexão.';
+                if (status === 'timeout') {
+                    mensagem = 'Timeout: A busca demorou muito para responder.';
+                }
+
+                mostrarErroCep(mensagem);
+            }
+        });
+    }    function mostrarErroCep(mensagem) {
+        limparCamposEndereco();
+
+        Swal.fire({
+            title: 'Erro!',
+            text: mensagem,
+            icon: 'error',
+            timer: 3000,
+            showConfirmButton: false
+        });
+    }
+
+    function limparCamposEndereco() {
+        $('#cep-loading').hide();
+        $('#rua, #bairro, #cidade, #complemento').val('').prop('readonly', false).removeClass('cep-loading');
+        $('#estado').val('');
+        $('#cep').removeClass('is-invalid');
     }
 </script>
 @endpush

@@ -22,10 +22,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function() {
     Route::post('/vendas/{id}/concluir', [VendaController::class, 'concluirVenda'])->name('venda.concluir');
     Route::delete('/colaboradores/{colaboradorId}', [ColaboradorController::class, 'destroy'])->name('colaboradores.destroy');
     Route::get('/colaboradores', [ColaboradorController::class, 'index'])->name('admin.colaboradores.index');
+    Route::get('/colaboradores/servicos', [ColaboradorController::class, 'listarServicos'])->name('admin.servicos.listar');
+    Route::get('/colaboradores/{colaborador}', [ColaboradorController::class, 'show'])->name('admin.colaboradores.show');
     Route::post('/colaboradores', [ColaboradorController::class, 'storeColaborador'])->name('admin.colaboradores.store');
     Route::post('/servicos', [ColaboradorController::class, 'storeServico'])->name('admin.servicos.store');
-    Route::post('/colaboradores/{colaboradorId}/servicos', [ColaboradorController::class, 'storeServicoColaborador'])->name('admin.colaboradores.servicos.store');
-    Route::get('/colaboradores/servicos', [ColaboradorController::class, 'listarServicos'])->name('admin.servicos.listar');
+    Route::post('/colaboradores/{colaboradorId}/servicos', [ColaboradorController::class, 'adicionarServicoColaborador'])->name('admin.colaboradores.servicos.store');
+    Route::delete('/colaboradores/{colaboradorId}/servicos/{servicoId}', [ColaboradorController::class, 'destroyServicoColaborador'])->name('admin.colaboradores.servicos.destroy');
     Route::get('/colaboradores/{colaboradorId}/detalhes', [ColaboradorController::class, 'detalhes'])->name('admin.colaboradores.detalhes');
     Route::PUT('proMuda-status', [PromocaoController::class, 'proMudaStatus'])->name('promocao.muda-status');
     Route::resource('admin/promocao', PromocaoController::class);
@@ -37,15 +39,18 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function() {
     Route::resource('admin/categoria', CategoriaController::class);
     Route::PUT('muda-status', [SliderController::class, 'mudaStatus'])->name('slider.muda-status');
     Route::resource('admin/slider', SliderController::class);
-    Route::get('admin/dashboard', [AdminController::class, 'dashboard'])
-    ->middleware(['auth', 'admin'])
+    Route::get('dashboard', [AdminController::class, 'dashboard'])
     ->name('admin.dashboard');
-    Route::get('admin/profile', [ProfileController::class, 'index'])
+    Route::get('profile', [ProfileController::class, 'index'])
     ->name('admin.profile');
-    Route::post('admin/profile/update', [ProfileController::class, 'update'])
+    Route::post('profile/update', [ProfileController::class, 'update'])
     ->name('admin.profile.update');
-    Route::post('admin/profile/update/password', [ProfileController::class, 'updatePassword'])
+    Route::post('profile/update/password', [ProfileController::class, 'updatePassword'])
     ->name('admin.profile.password');
+    Route::get('faturamento', [AdminController::class, 'faturamentoIndex'])
+    ->name('admin.faturamento.index');
+    Route::post('faturamento/filtrar', [AdminController::class, 'faturamentoFiltrar'])
+    ->name('admin.faturamento.filtrar');
 });
 
 

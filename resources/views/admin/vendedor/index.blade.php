@@ -165,16 +165,14 @@
                         <input type="date" id="start_date"> até <input type="date" id="end_date">
                         <button class="btn btn-primary" id="buscarVendas">Buscar</button>
                     </div>
-                    <p><strong>Peças vendidas:</strong> <span id="totalPecas"></span></p>
+                    <p><strong>Total de vendas:</strong> <span id="totalPecas"></span></p>
                     <p><strong>Valor total vendido:</strong> R$ <span id="totalVendas"></span></p>
 
                     <div class="table-responsive">
                         <table class="table table-striped" id="vendasTable">
                             <thead>
                                 <tr>
-                                    <th>Produto</th>
                                     <th>Comprador</th>
-                                    <th>Quantidade</th>
                                     <th>Valor</th>
                                     <th>Status</th>
                                     <th>Ações</th>
@@ -245,18 +243,10 @@
                                 d.end_date = $('#end_date').val();
                             }
                         },
-                        columns: [{
-                                data: 'produto_nome',
-                                name: 'produto_nome'
-                            },
+                        columns: [
                             {
                                 data: 'comprador_nome',
                                 name: 'comprador_nome'
-                            },
-                            {
-                                data: 'quantidade',
-                                name: 'quantidade',
-                                className: 'text-left'
                             },
                             {
                                 data: 'valor_venda',
@@ -284,18 +274,17 @@
                         ],
                         drawCallback: function(settings) {
                             // Atualiza os totais após carregar os dados
-                            let totalPecas = 0;
                             let totalVendas = 0;
+                            let totalPecas = this.api().data().length; // Conta o número de vendas
 
                             this.api().data().each(function(venda) {
-                                totalPecas += venda.quantidade;
                                 totalVendas += parseFloat(venda.valor_venda);
                             });
 
                             $('#totalPecas').text(totalPecas);
                             $('#totalVendas').text(totalVendas.toLocaleString('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL'
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
                             }));
                         },
                         error: function(xhr, status, error) {

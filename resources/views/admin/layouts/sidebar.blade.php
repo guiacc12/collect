@@ -27,7 +27,7 @@
         <li class="dropdown">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown" style="color: #203a4e"><i class="fas fa-briefcase"></i> <span>Relatórios</span></a>
             <ul class="dropdown-menu">
-              <li><a class="nav-link" href="layout-default.html" style="color: #203a4e">Faturamento/Vendas</a></li>
+              <li><a class="nav-link" href="{{ route('admin.faturamento.index') }}" style="color: #203a4e">Faturamento/Vendas</a></li>
               <li><a class="nav-link" href="{{ route('vendedor.index') }}" style="color: #203a4e">Vendedores</a></li>
               <li><a class="nav-link" href="{{ route('admin.colaboradores.index') }}" style="color: #203a4e">Colaboradores</a></li>
             </ul>

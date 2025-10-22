@@ -16,7 +16,7 @@ class ColaboradorDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('action', function($query) {
-                $detalhes = "<a href='#' class='btn btn-info btn-sm btnDetalhes' data-id='".$query->id."'><i class='fas fa-eye'></i></a>";
+                $detalhes = "<a href='".route('admin.colaboradores.show', $query->id)."' class='btn btn-info btn-sm'><i class='fas fa-eye'></i></a>";
                 $excluir = "<button class='btn btn-danger btn-sm btnExcluirColaborador' data-id='".$query->id."'><i class='fas fa-trash'></i></button>";
                 return $detalhes . ' ' . $excluir;
             });

@@ -18,4 +18,9 @@ class Colaborador extends Model
                     ->withPivot('valor', 'data_producao', 'quantidade')
                     ->withTimestamps();
     }
+
+    public function colaboradorServicos()
+    {
+        return $this->hasMany(ColaboradorServico::class);
+    }
 }

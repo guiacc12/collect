@@ -26,7 +26,7 @@ class VendaController extends Controller
         }
 
         $totalVendas = $query->sum('valor_venda');
-        $totalPecas = $query->sum('quantidade');
+        $totalPecas = $query->count(); // Conta o número de vendas
 
         return response()->json([
             'total_pecas' => $totalPecas,

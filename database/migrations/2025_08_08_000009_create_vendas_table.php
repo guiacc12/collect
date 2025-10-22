@@ -9,9 +9,7 @@ return new class extends Migration {
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vendedor_id')->constrained('vendedors')->onDelete('cascade')->onUpdate('restrict');
-            $table->string('produto_nome');
             $table->string('comprador_nome');
-            $table->integer('quantidade');
             $table->decimal('valor_venda', 10, 2);
             $table->boolean('status')->default(0);
             $table->string('cpf_cnpj');

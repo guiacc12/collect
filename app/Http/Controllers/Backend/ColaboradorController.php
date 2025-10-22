@@ -10,12 +10,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 
+
 class ColaboradorController extends Controller
 {
     // Listar colaboradores
     public function index(ColaboradorDataTable $dataTable)
     {
         return $dataTable->render('admin.colaborador.index');
+    }
+
+    // Mostrar detalhes do colaborador
+    public function show(Colaborador $colaborador)
+    {
+        $colaborador->load(['colaboradorServicos.servico']);
+        return view('admin.colaborador.show', compact('colaborador'));
     }
 
     // Adicionar colaborador
@@ -44,61 +52,52 @@ class ColaboradorController extends Controller
     }
 
     // Adicionar serviço a um colaborador
-    public function storeServicoColaborador(Request $request, $colaboradorId)
+    public function adicionarServicoColaborador(Request $request, $colaboradorId)
     {
-    $request->validate([
-        'servico_id' => 'required|exists:servicos,id',
-        'quantidade' => 'required|integer|min:1',
-        'valor' => 'required|numeric',
-        'data_producao' => 'required|date',
-    ]);
-
-    try {
-        ColaboradorServico::create([
-            'colaborador_id' => $colaboradorId,
-            'servico_id' => $request->servico_id,
-            'quantidade' => $request->quantidade,
-            'valor' => $request->valor,
-            'data_producao' => $request->data_producao,
+        $validated = $request->validate([
+            'servico_id' => 'required|exists:servicos,id',
+            'quantidade' => 'required|integer|min:1',
+            'valor' => 'required|numeric|min:0',
+            'data_producao' => 'required|date',
         ]);
 
-        return response()->json(['success' => true]);
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'message' => 'Erro ao adicionar serviço.'], 500);
-    }
-    }
+        $validated['colaborador_id'] = $colaboradorId;
 
-    // Detalhes do colaborador
+        $colaboradorServico = ColaboradorServico::create($validated);
+
+        return response()->json(['success' => true, 'message' => 'Serviço adicionado com sucesso!']);
+    }    // Detalhes do colaborador
     public function detalhes($colaboradorId, Request $request)
     {
-    $colaborador = Colaborador::find($colaboradorId);
+        $colaborador = Colaborador::find($colaboradorId);
 
-    if (!$colaborador) {
-        return response()->json(['error' => 'Colaborador não encontrado'], 404);
-    }
+        if (!$colaborador) {
+            return response()->json(['error' => 'Colaborador não encontrado'], 404);
+        }
 
-    $query = $colaborador->servicos();
+        $query = $colaborador->colaboradorServicos()->with('servico');
 
-    if ($request->has('data_inicio') && $request->has('data_fim')) {
-        $query->whereBetween('colaborador_servico.data_producao', [
-            $request->data_inicio,
-            $request->data_fim
+        if ($request->has('data_inicio') && $request->has('data_fim')) {
+            $query->whereBetween('data_producao', [
+                $request->data_inicio,
+                $request->data_fim
+            ]);
+        }
+
+        $servicos = $query->get()->map(function ($colaboradorServico) {
+            return [
+                'id' => $colaboradorServico->id,
+                'nome_servico' => $colaboradorServico->servico->nome,
+                'quantidade' => $colaboradorServico->quantidade,
+                'valor' => number_format($colaboradorServico->valor, 2, ',', '.'),
+                'valor_total' => number_format($colaboradorServico->valor_total, 2, ',', '.'),
+                'data_producao' => \Carbon\Carbon::parse($colaboradorServico->data_producao)->format('d/m/Y'),
+            ];
+        });
+
+        return response()->json([
+            'servicos' => $servicos,
         ]);
-    }
-
-    $servicos = $query->get()->map(function ($servico) {
-        return [
-            'nome_servico' => $servico->nome,
-            'quantidade' => $servico->pivot->quantidade,
-            'valor' => number_format($servico->pivot->valor, 2, ',', '.'),
-            'valor_total' => number_format($servico->pivot->valor * $servico->pivot->quantidade, 2, ',', '.'),
-            'data_producao' => $servico->pivot->data_producao,
-        ];
-    });
-
-    return response()->json([
-        'servicos' => $servicos,
-    ]);
     }
 
     public function listarServicos()
@@ -117,6 +116,22 @@ class ColaboradorController extends Controller
     } catch (\Exception $e) {
         return response()->json(['success' => false, 'message' => 'Erro ao excluir colaborador.'], 500);
     }
+    }
+
+    // Excluir serviço de um colaborador
+    public function destroyServicoColaborador($colaboradorId, $servicoId)
+    {
+        try {
+            $colaboradorServico = ColaboradorServico::where('colaborador_id', $colaboradorId)
+                ->where('id', $servicoId)
+                ->firstOrFail();
+
+            $colaboradorServico->delete();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Erro ao excluir serviço.'], 500);
+        }
     }
 
 }

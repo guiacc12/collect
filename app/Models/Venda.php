@@ -11,7 +11,7 @@ class Venda extends Model
     use HasFactory;
 
     protected $fillable = [
-        'vendedor_id', 'produto_nome', 'comprador_nome', 'quantidade',
+        'vendedor_id', 'descricao', 'comprador_nome',
         'valor_venda', 'status', 'cpf_cnpj', 'cep', 'rua', 'numero',
         'complemento', 'bairro', 'cidade', 'estado'
     ];
